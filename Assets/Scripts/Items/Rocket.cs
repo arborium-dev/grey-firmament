@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps; // Needed to interact with Tilemaps!
 
@@ -57,6 +58,18 @@ public class Rocket : MonoBehaviour
                 if (tilemap != null)
                 {
                     DestroyTilesInRadius(tilemap, transform.position, explosionRadius);
+                }
+            }
+
+            if (obj.CompareTag("Floor"))
+            {
+                // Try to get the Tilemap component (sometimes it's on a parent object)
+                Tilemap tilemap = obj.GetComponent<Tilemap>();
+                if (tilemap == null) tilemap = obj.GetComponentInParent<Tilemap>();
+
+                if (tilemap != null)
+                {
+                    DestroyTilesInRadius(tilemap, transform.position, (explosionRadius - 1.5f));
                 }
             }
         }
