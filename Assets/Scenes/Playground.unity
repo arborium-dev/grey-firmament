@@ -2399,6 +2399,7 @@ GameObject:
   - component: {fileID: 430176084}
   - component: {fileID: 430176085}
   - component: {fileID: 430176086}
+  - component: {fileID: 430176087}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2421,8 +2422,6 @@ MonoBehaviour:
   maxMoveSpeed: 5
   acceleration: 40
   deceleration: 55
-  groundDeathDelay: 0.2
-  minimumScaleMultiplier: 0.05
   playerInput: {fileID: 0}
 --- !u!212 &430176078
 SpriteRenderer:
@@ -2501,6 +2500,7 @@ Transform:
   - {fileID: 1121223065}
   - {fileID: 2109663561}
   - {fileID: 590331926}
+  - {fileID: 1627048472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &430176080
@@ -2741,10 +2741,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8685de05ebf884e8aeeeefc9f8f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerItemExecutor
-  slotOneItem: {fileID: 1743450551}
+  slotOneItem: {fileID: 1627048473}
   slotTwoItem: {fileID: 1121223066}
   slotThreeItem: {fileID: 2109663560}
   meleeWeapon: {fileID: 1334977374}
+--- !u!114 &430176087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430176076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f406616e30117140b350c647839741d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::World.VanishOnUngrounded
+  groundTags:
+  - Floor
+  - Ground
+  - Solid
+  groundDeathDelay: 0.2
+  minimumScaleMultiplier: 0.05
+  destroyOnDeath: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4087,6 +4106,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1627048471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1627048472}
+  - component: {fileID: 1627048473}
+  m_Layer: 0
+  m_Name: Grenades
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1627048472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627048471}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 430176079}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1627048473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627048471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa17b4fbd4879d4581621af4d8cf48a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrenadeItem
+  grenadePrefab: {fileID: 4666242510378401528, guid: 9663e549f7389504aa878a683bdd0fa8, type: 3}
+  throwSpeed: 30
+  currentAmmo: 0
+  recoilForce: 5
 --- !u!1 &1742455245
 GameObject:
   m_ObjectHideFlags: 0
