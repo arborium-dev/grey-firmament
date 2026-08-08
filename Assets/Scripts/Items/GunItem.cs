@@ -1,4 +1,5 @@
 using UnityEngine;
+using Player;
 
 public class GunItem : ItemBase
 {
@@ -6,6 +7,9 @@ public class GunItem : ItemBase
     public float bulletSpeed = 200f;
     public int totalAmmo = 6;
     public int currentAmmo;
+    
+    [Header("Recoil Settings")]
+    public float recoilForce = 15f; // How hard the gun pushes you back
 
     void Start()
     {
@@ -28,6 +32,13 @@ public class GunItem : ItemBase
         if (rb != null)
         {
             rb.linearVelocity = aimDirection * bulletSpeed;
+        }
+        // recoil
+        PlayerMovement playerMovement = GetComponentInParent<PlayerMovement>();
+        if (playerMovement != null)
+        {
+            // Push the player in the exact OPPOSITE direction of the aim
+            playerMovement.AddExternalVelocity(-aimDirection * recoilForce);
         }
         currentAmmo--;
     }

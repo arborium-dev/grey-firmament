@@ -62,6 +62,8 @@ namespace Player
             Vector2 targetInputVelocity = input * maxMoveSpeed;
             float rate = input.sqrMagnitude > 0.0001f ? acceleration : deceleration;
             _inputVelocity = Vector2.MoveTowards(_inputVelocity, targetInputVelocity, rate * Time.fixedDeltaTime);
+            
+            _externalVelocity = Vector2.Lerp(_externalVelocity, Vector2.zero, 10f * Time.fixedDeltaTime); 
 
             // Apply only the movement we control, so wall collision doesn't get re-fed into motion.
             _rb.linearVelocity = _inputVelocity + _externalVelocity;

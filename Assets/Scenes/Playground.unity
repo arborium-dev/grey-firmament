@@ -419,6 +419,8 @@ Transform:
   - {fileID: 1334977373}
   - {fileID: 1743450550}
   - {fileID: 1121223065}
+  - {fileID: 2109663561}
+  - {fileID: 590331926}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &430176080
@@ -492,7 +494,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &430176082
 MonoBehaviour:
@@ -661,7 +663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerItemExecutor
   slotOneItem: {fileID: 1743450551}
   slotTwoItem: {fileID: 1121223066}
-  slotThreeItem: {fileID: 0}
+  slotThreeItem: {fileID: 2109663560}
   meleeWeapon: {fileID: 1334977374}
 --- !u!1 &519420028
 GameObject:
@@ -799,6 +801,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &590331925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 590331926}
+  m_Layer: 0
+  m_Name: Mike & Ike Item
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &590331926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590331925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 430176079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
@@ -1088,7 +1121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RocketLauncherItem
   rocketPrefab: {fileID: 1629427098483404981, guid: 16f508087db750341b647a8ab9061d60, type: 3}
-  rocketSpeed: 15
+  rocketSpeed: 25
+  currentAmmo: 0
+  recoilForce: 110
 --- !u!1 &1271956134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,6 +1824,7 @@ MonoBehaviour:
   bulletSpeed: 20
   totalAmmo: 6
   currentAmmo: 0
+  recoilForce: 10
 --- !u!1 &1958979336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,6 +1900,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958979336}
   m_CullTransparentMesh: 1
+--- !u!1 &2109663559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2109663561}
+  - component: {fileID: 2109663560}
+  m_Layer: 0
+  m_Name: Leaf Blower Item
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2109663560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109663559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed1d47f44692754ab2f96a8b678820e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeafBlowerItem
+  blowbackForce: 200
+--- !u!4 &2109663561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109663559}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 430176079}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
