@@ -801,8 +801,9 @@ MonoBehaviour:
     shownItemDescription: ROCKETLAUNCHER, comes with 1 use. Good at destroying walls.
     shownItemSprite: {fileID: 8360716499206057816, guid: 549238ce9e03c0a4f943f4854d17666e, type: 3}
   - itemName: MikeIke
-    shownItemDescription: Mike & Ikes, genuenlly useless.
-    shownItemSprite: {fileID: 5739655278820020832, guid: fffef4129820c464e9b32bdaff16fb18, type: 3}
+    shownItemDescription: Mike & Ikes, genuenlly useless. You feel an urge to steal
+      these
+    shownItemSprite: {fileID: 6269331431527670323, guid: 59eeddb8cd52bd04cb6885339d68e22b, type: 3}
   optionOneText: {fileID: 1993653897}
   optionTwoText: {fileID: 692823291}
   optionThreeText: {fileID: 108638870}
