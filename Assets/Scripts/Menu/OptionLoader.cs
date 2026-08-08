@@ -33,6 +33,7 @@ public class OptionLoader : MonoBehaviour
     // We will store the names of the 5 rolled items here, so when you click 
     // a button later to select one, the game knows which item was in that slot!
     [HideInInspector] public string[] rolledItemNames = new string[5];
+    [HideInInspector] public Sprite[] rolledItemSprites = new Sprite[5];
 
     void Start()
     {
@@ -79,6 +80,7 @@ public class OptionLoader : MonoBehaviour
 
             // Save the name of the item that got put into this slot
             rolledItemNames[i] = shuffledPool[i].itemName;
+            rolledItemSprites[i] = shuffledPool[i].shownItemSprite;
         }
 
         // fail-safe: If you have less than 5 items, hide the unused UI slots
@@ -87,6 +89,7 @@ public class OptionLoader : MonoBehaviour
             textSlots[i].text = "???";
             imageSlots[i].color = Color.clear; // Make the image invisible
             rolledItemNames[i] = "";
+            rolledItemSprites[i] = null;
         }
     }
 }
