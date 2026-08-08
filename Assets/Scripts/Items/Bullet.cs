@@ -24,7 +24,6 @@ public class Bullet : MonoBehaviour
             // EnemyHealth enemy = hitInfo.GetComponent<EnemyHealth>();
             // if (enemy != null) enemy.TakeDamage(damage);
 
-            // Destroy the bullet after hitting the enemy
             Destroy(gameObject); 
         }
 
@@ -32,8 +31,6 @@ public class Bullet : MonoBehaviour
         else if (hitInfo.CompareTag("Solid"))
         {
             Debug.Log("Bullet hit a wall!");
-            
-            // Destroy the bullet so it doesn't fly through the wall
             Destroy(gameObject);
         }
     }
