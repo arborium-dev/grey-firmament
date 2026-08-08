@@ -2,6 +2,7 @@ the idea
 
 THEME: The stars reward those who dare to improvise
 
+Setting: Year 8888, kind of cyberpunk
 
 
 Racoon Name: Racchias
@@ -30,3 +31,14 @@ Base moveset with melee
 3 levels (+ 1 tutorial)
 Ending cutscene
 Opening cutscene (if time)
+
+
+
+
+theme: The stars reward those who dare to improvise
+
+
+slogan:
+We're making a top-down immersive sim where you are a racoon who is climbing a clocktower to finally see the stars.
+This is a game where the sky is illegal, and you do crimes.
+

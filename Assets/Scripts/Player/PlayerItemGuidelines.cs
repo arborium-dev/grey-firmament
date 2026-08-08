@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(LineRenderer))]
-public class PlayerItemUse : MonoBehaviour
+public class PlayerItemGuidelines : MonoBehaviour
 {
     private InputAction useItemAction;
     private PlayerItemManager itemManager;
