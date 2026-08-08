@@ -27,7 +27,7 @@ public class RocketLauncherItem : ItemBase
         GameObject rocket = Instantiate(rocketPrefab, startPosition, Quaternion.identity);
         
         // Point the rocket in the direction it's flying
-        rocket.transform.up = aimDirection; 
+        rocket.transform.right = aimDirection; 
         
         Rigidbody2D rb = rocket.GetComponent<Rigidbody2D>();
         if (rb != null)

@@ -2742,7 +2742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerItemExecutor
   slotOneItem: {fileID: 1627048473}
-  slotTwoItem: {fileID: 1121223066}
+  slotTwoItem: {fileID: 1743450551}
   slotThreeItem: {fileID: 2109663560}
   meleeWeapon: {fileID: 1334977374}
 --- !u!114 &430176087
@@ -4274,7 +4274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunItem
   bulletPrefab: {fileID: 3453979144895854807, guid: 040feec10daab1044996fc71118bb20f, type: 3}
-  bulletSpeed: 20
+  bulletSpeed: 100
   totalAmmo: 6
   currentAmmo: 0
   recoilForce: 10

@@ -27,6 +27,8 @@ public class GunItem : ItemBase
         // Create the bullet
         GameObject bullet = Instantiate(bulletPrefab, startPosition, Quaternion.identity);
         
+        bullet.transform.right = aimDirection; 
+
         // Shoot it in the aim direction
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
