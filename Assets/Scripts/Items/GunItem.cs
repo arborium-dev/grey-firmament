@@ -3,7 +3,7 @@ using UnityEngine;
 public class GunItem : ItemBase
 {
     public GameObject bulletPrefab;
-    public float bulletSpeed = 40f;
+    public float bulletSpeed = 200f;
     public int totalAmmo = 6;
     public int currentAmmo;
 
