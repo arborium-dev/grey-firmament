@@ -5,14 +5,13 @@ public class GunItem : ItemBase
 {
     public GameObject bulletPrefab;
     public float bulletSpeed = 200f;
-    public int totalAmmo = 6;
-    public int currentAmmo;
     
     [Header("Recoil Settings")]
     public float recoilForce = 15f; // How hard the gun pushes you back
 
     void Start()
     {
+        totalAmmo = 6;
         currentAmmo = totalAmmo;
     }
 

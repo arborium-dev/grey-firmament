@@ -5,14 +5,13 @@ public class GrenadeItem : ItemBase
 {
     public GameObject grenadePrefab;
     public float throwSpeed = 12f;
-    private int totalAmmo = 3; // You get a set of 3 grenades
-    public int currentAmmo;
-
+    
     [Header("Recoil Settings")]
     public float recoilForce = 5f; // Smaller recoil for throwing
     
     void Start()
     {
+        totalAmmo = 3;
         currentAmmo = totalAmmo;
     }
 

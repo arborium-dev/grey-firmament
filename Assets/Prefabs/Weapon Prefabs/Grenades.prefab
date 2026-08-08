@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa17b4fbd4879d4581621af4d8cf48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrenadeItem
+  itemIcon: {fileID: -170616416085849293, guid: 71d1d534d19315745aa73f3f60dfeac1, type: 3}
+  usesAmmo: 1
+  currentAmmo: 0
+  totalAmmo: 3
   grenadePrefab: {fileID: 4666242510378401528, guid: 9663e549f7389504aa878a683bdd0fa8, type: 3}
   throwSpeed: 30
-  currentAmmo: 0
   recoilForce: 5

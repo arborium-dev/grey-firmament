@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e550c5e24534a4c9cbd6f6417ca496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunItem
+  itemIcon: {fileID: -6030365271188894637, guid: 72c379a690387c94894df4b95cb0b377, type: 3}
+  usesAmmo: 1
+  currentAmmo: 0
+  totalAmmo: 6
   bulletPrefab: {fileID: 3453979144895854807, guid: 040feec10daab1044996fc71118bb20f, type: 3}
   bulletSpeed: 100
-  totalAmmo: 6
-  currentAmmo: 0
   recoilForce: 10

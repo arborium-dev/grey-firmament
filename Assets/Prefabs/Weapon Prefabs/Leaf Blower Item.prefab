@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed1d47f44692754ab2f96a8b678820e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeafBlowerItem
+  itemIcon: {fileID: -4452959595733703465, guid: d8fdd2297e5b3f84f936f55ad934c59e, type: 3}
   blowbackForce: 200

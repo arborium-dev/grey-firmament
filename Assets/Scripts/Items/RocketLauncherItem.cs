@@ -5,14 +5,13 @@ public class RocketLauncherItem : ItemBase
 {
     public GameObject rocketPrefab;
     public float rocketSpeed = 15f;
-    private int totalAmmo = 1;
-    public int currentAmmo;
-
+ 
     [Header("Recoil Settings")]
     public float recoilForce = 15f; // How hard the gun pushes you back
     
     void Start()
     {
+        totalAmmo = 1;
         currentAmmo = totalAmmo;
     }
     public override void UseItem(Vector3 startPosition, Vector2 aimDirection)

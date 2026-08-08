@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fdbc827829d8b47bea7e71513b00b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RocketLauncherItem
+  itemIcon: {fileID: 8360716499206057816, guid: 549238ce9e03c0a4f943f4854d17666e, type: 3}
+  usesAmmo: 1
+  currentAmmo: 0
+  totalAmmo: 1
   rocketPrefab: {fileID: 1629427098483404981, guid: 16f508087db750341b647a8ab9061d60, type: 3}
   rocketSpeed: 25
-  currentAmmo: 0
   recoilForce: 110

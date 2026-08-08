@@ -1,9 +1,15 @@
 using UnityEngine;
 
-// This is an abstract class. You won't attach this directly to anything,
-// instead, your specific items will inherit from this.
 public abstract class ItemBase : MonoBehaviour
 {
-    // Every item needs a Use function that takes the starting position and aiming direction
+    [Header("UI Information")]
+    public Sprite itemIcon; 
+
+    [Header("Ammo Settings")]
+    public bool usesAmmo = false; // Check this for rockets/grenades. Leave false for LeafBlower/Melee.
+    public int currentAmmo;
+    public int totalAmmo;
+
+    // Every item needs a Use function
     public abstract void UseItem(Vector3 startPosition, Vector2 aimDirection);
 }
