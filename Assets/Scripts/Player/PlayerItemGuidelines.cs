@@ -2,17 +2,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(LineRenderer))]
-public class PlayerItemUse : MonoBehaviour
+public class PlayerItemGuidelines : MonoBehaviour
 {
     private InputAction useItemAction;
     private PlayerItemManager itemManager;
     private string currentlyUsingItem;
-    
+
     private LineRenderer aimLine;
     private Camera mainCamera;
-    
+
     // --- New: Maximum distance the light will travel if it doesn't hit a wall ---
-    public float maxLaserDistance = 50f; 
+    public float maxLaserDistance = 50f;
 
     void Start()
     {
@@ -23,16 +23,16 @@ public class PlayerItemUse : MonoBehaviour
         }
 
         mainCamera = Camera.main;
-        
+
         aimLine = GetComponent<LineRenderer>();
-        aimLine.positionCount = 2; 
-        aimLine.enabled = false;   
-        
+        aimLine.positionCount = 2;
+        aimLine.enabled = false;
+
         Color translucentGreen = new Color(0f, 1f, 0f, 0.5f);
         aimLine.startColor = translucentGreen;
         aimLine.endColor = translucentGreen;
-        aimLine.startWidth = 0.1f;
-        aimLine.endWidth = 0.1f;
+        aimLine.startWidth = 0.05f;
+        aimLine.endWidth = 0.05f;
     }
 
     void OnEnable()
@@ -46,23 +46,23 @@ public class PlayerItemUse : MonoBehaviour
         {
             currentlyUsingItem = itemManager.CurrentlySelectedItem;
         }
-        
+
         if (useItemAction.WasPressedThisFrame())
         {
             Time.timeScale = 0.3f;
-            aimLine.enabled = true; 
+            aimLine.enabled = true;
             Debug.Log($"Current Item: {currentlyUsingItem}");
         }
-        
+
         if (useItemAction.IsPressed())
         {
-            UpdateAimLight(); 
+            UpdateAimLight();
         }
 
         if (useItemAction.WasReleasedThisFrame())
         {
-            Time.timeScale = 1f; 
-            aimLine.enabled = false; 
+            Time.timeScale = 1f;
+            aimLine.enabled = false;
         }
     }
 
@@ -75,8 +75,8 @@ public class PlayerItemUse : MonoBehaviour
         // 2. Get Mouse World Position
         Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
         Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(
-            mouseScreenPosition.x, 
-            mouseScreenPosition.y, 
+            mouseScreenPosition.x,
+            mouseScreenPosition.y,
             mainCamera.nearClipPlane));
         mouseWorldPosition.z = startPosition.z;
 
