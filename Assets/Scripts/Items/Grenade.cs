@@ -16,6 +16,32 @@ public class Grenade : MonoBehaviour
         Invoke(nameof(Explode), fuseTime);
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Explosive"))
+        {
+            Debug.Log("SUCCESS: Bullet physically collided with the Explosive barrel!");
+            
+            // Get the script
+            ExplosiveBarrelObject barrelScript = collision.collider.GetComponent<ExplosiveBarrelObject>();
+            
+            // Check parents just in case
+            if (barrelScript == null) 
+            {
+                barrelScript = collision.collider.GetComponentInParent<ExplosiveBarrelObject>();
+            }
+            
+            // Trigger the explosion
+            if (barrelScript != null)
+            {
+                barrelScript.Explode();
+            }
+            
+            // Destroy the bullet
+            Destroy(gameObject);
+        }
+    }
+    
     // REMOVED OnTriggerEnter2D. 
     // We want the grenade to bounce off walls
 
