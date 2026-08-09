@@ -17,7 +17,17 @@ namespace Player
         
         [SerializeField] private PlayerInput playerInput;
 
-        // Input movement is capped; external speed can be injected separately.
+        [Header("Animations")]
+        [SerializeField] private Animator animator;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+
+        // Type the EXACT names of your Animation Clips in the inspector here
+        [SerializeField] private string walkDownAnim = "WalkDown";
+        [SerializeField] private string walkUpAnim = "WalkUp";
+        [SerializeField] private string walkRightAnim = "WalkRight"; 
+        [SerializeField] private string idleAnim = "Idle"; 
+
+        private string _currentState;
         private Vector2 _inputVelocity;
         private Vector2 _externalVelocity;
 
@@ -25,10 +35,9 @@ namespace Player
         {
             _rb = GetComponent<Rigidbody2D>();
 
-            if (playerInput == null)
-            {
-                playerInput = GetComponent<PlayerInput>();
-            }
+            if (playerInput == null) playerInput = GetComponent<PlayerInput>();
+            if (animator == null) animator = GetComponent<Animator>();
+            if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         private void OnEnable()
@@ -55,9 +64,13 @@ namespace Player
             }
         }
 
+        private void Update()
+        {
+            HandleAnimations();
+        }
+
         private void FixedUpdate()
         {
-
             Vector2 input = _moveAction != null ? _moveAction.ReadValue<Vector2>() : Vector2.zero;
             if (input.sqrMagnitude > 1f) input.Normalize();
 
@@ -67,8 +80,51 @@ namespace Player
             
             _externalVelocity = Vector2.Lerp(_externalVelocity, Vector2.zero, 10f * Time.fixedDeltaTime); 
 
-            // Apply only the movement we control, so wall collision doesn't get re-fed into motion.
             _rb.linearVelocity = _inputVelocity + _externalVelocity;
+        }
+
+        private void HandleAnimations()
+        {
+            if (_moveAction == null || animator == null) return;
+
+            Vector2 input = _moveAction.ReadValue<Vector2>();
+
+            // If the player is barely pressing anything, play Idle
+            if (input.sqrMagnitude < 0.01f)
+            {
+                ChangeAnimationState(idleAnim);
+                return;
+            }
+
+            // Determine if horizontal movement is stronger than vertical movement
+            if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
+            {
+                // We are moving horizontally
+                ChangeAnimationState(walkRightAnim);
+
+                // Flip sprite based on left/right
+                if (input.x < 0) 
+                    spriteRenderer.flipX = true; // Moving Left
+                else 
+                    spriteRenderer.flipX = false; // Moving Right
+            }
+            else
+            {
+                // We are moving vertically
+                if (input.y > 0)
+                    ChangeAnimationState(walkUpAnim); // Moving Up
+                else
+                    ChangeAnimationState(walkDownAnim); // Moving Down
+            }
+        }
+
+        // Helper method to ensure we don't restart an animation that is already playing
+        private void ChangeAnimationState(string newState)
+        {
+            if (_currentState == newState) return;
+
+            animator.Play(newState);
+            _currentState = newState;
         }
 
         public void AddExternalVelocity(Vector2 velocity)
@@ -78,7 +134,6 @@ namespace Player
         
         private void OnDestroy()
         {
-            // Check to ensure the scene is active so it doesn't trigger when you close the game
             if (gameObject.scene.isLoaded)
             {
                 Time.timeScale = 1;
@@ -86,6 +141,4 @@ namespace Player
             }
         }
     }
-    
-    
 }
