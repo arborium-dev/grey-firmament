@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Player; 
 
@@ -8,9 +9,20 @@ public class LeafBlowerItem : ItemBase
     
     // Optional: Add a sound or particle effect
     // public GameObject airBlastParticles;
+    private void Start()
+    {
+        totalAmmo = 5;
+        currentAmmo = totalAmmo;
+    }
 
+
+    
+    
     public override void UseItem(Vector3 startPosition, Vector2 aimDirection)
     {
+        if (currentAmmo == 0)
+            return;
+        
         Debug.Log("WOOSH! Blasted backward!");
 
         // Optional: Instantiate(airBlastParticles, startPosition, Quaternion.identity);
@@ -21,5 +33,6 @@ public class LeafBlowerItem : ItemBase
             // Launch the player away from the mouse!
             playerMovement.AddExternalVelocity(-aimDirection * blowbackForce);
         }
+        currentAmmo--;
     }
 }

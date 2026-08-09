@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -74,5 +75,17 @@ namespace Player
         {
             _externalVelocity += velocity;
         }
+        
+        private void OnDestroy()
+        {
+            // Check to ensure the scene is active so it doesn't trigger when you close the game
+            if (gameObject.scene.isLoaded)
+            {
+                Time.timeScale = 1;
+                SceneManager.LoadScene("Item Selector");
+            }
+        }
     }
+    
+    
 }
