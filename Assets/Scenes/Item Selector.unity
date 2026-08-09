@@ -393,7 +393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -552, y: 23}
+  m_AnchoredPosition: {x: -614.7, y: 106}
   m_SizeDelta: {x: 440, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389432215
@@ -855,7 +855,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MenuController
   optionLoader: {fileID: 705721763}
   instructionText: {fileID: 0}
-  gameSceneName: Playground
+  gameSceneNameOne: LvlOne
+  gameSceneNameTwo: LvlTwo
+  gameSceneNameThree: LvlThree
+  finalSceneName: Ending Cutscene
   growDuration: 0.75
   optionButtons: []
   imageSlotOne: {fileID: 1691960085}
@@ -1686,7 +1689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -382, y: -123}
+  m_AnchoredPosition: {x: -451.5, y: -120.1}
   m_SizeDelta: {x: 440, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1294723717

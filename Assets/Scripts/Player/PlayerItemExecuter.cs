@@ -28,6 +28,10 @@ public class PlayerItemExecuter : MonoBehaviour
     public TextMeshProUGUI slotThreeAmmoText;
     public TextMeshProUGUI meleeAmmoText;
 
+    [Header("Aiming Settings")]
+    [Tooltip("How far from the player's center projectiles should spawn. Adjust this to match your sprite's edge!")]
+    public float spawnRadius = 0.5f;
+
     private ItemBase slotOneItem;
     private ItemBase slotTwoItem;
     private ItemBase slotThreeItem;
@@ -132,10 +136,22 @@ public class PlayerItemExecuter : MonoBehaviour
 
     private void ExecuteCurrentlySelectedItem()
     {
-        Vector3 startPosition = transform.position;
+        // 1. Get the center of the player
+        Vector3 playerCenter = transform.position;
+        
+        // 2. Get the mouse position
         Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
         Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, mainCamera.nearClipPlane));
-        Vector2 aimDirection = (mouseWorldPosition - startPosition).normalized;
+        
+        // Ensure the Z coordinate is identical to the player to prevent aiming into the floor/sky which can skew the math
+        mouseWorldPosition.z = playerCenter.z; 
+
+        // 3. Calculate the direction from the center of the player to the mouse
+        Vector2 aimDirection = (mouseWorldPosition - playerCenter).normalized;
+
+        // 4. Calculate the new start position perfectly along your guideline!
+        // We take the center, and push it out in the direction of the mouse by 'spawnRadius' units.
+        Vector3 startPosition = playerCenter + (Vector3)(aimDirection * spawnRadius);
 
         switch (itemManager.CurrentlySelectedItem)
         {
@@ -153,5 +169,4 @@ public class PlayerItemExecuter : MonoBehaviour
                 break;
         }
     }
-    
 }

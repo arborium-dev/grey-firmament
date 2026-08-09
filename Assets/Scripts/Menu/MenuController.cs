@@ -8,8 +8,11 @@ public class MenuController : MonoBehaviour
     [Header("References")]
     public OptionLoader optionLoader;
     public TextMeshProUGUI instructionText; // Tells player what to do (e.g., "Select Tool 1")
-    public string gameSceneName = "GameScene"; // Make sure this matches your exact scene name!
-
+    public string gameSceneNameOne = "GameScene"; // Make sure this matches your exact scene name!
+    public string gameSceneNameTwo = "GameSceneTwo";
+    public string gameSceneNameThree = "GameSceneThree";
+    public string finalSceneName = "FinalScene";
+    
     [Header("Transition")]
     public float growDuration = 0.75f;
 
@@ -30,6 +33,11 @@ public class MenuController : MonoBehaviour
         if (instructionText != null)
         {
             instructionText.text = "Select Tool 1";
+        }
+
+        if (GlobalVars.PlayerLevel == 4)
+        {
+            SceneManager.LoadScene(finalSceneName);
         }
     }
 
@@ -115,7 +123,7 @@ public class MenuController : MonoBehaviour
             else
             {
                 // all 3 slots are filled, load the actual game
-                SceneManager.LoadScene(gameSceneName);
+                LoadTheActualGame();
             }
 
             return;
@@ -125,6 +133,23 @@ public class MenuController : MonoBehaviour
         if (clickedButton != null)
         {
             clickedButton.interactable = false; 
+        }
+    }
+
+    private void LoadTheActualGame()
+    {
+        // all 3 slots are filled, load the actual game
+        if (GlobalVars.PlayerLevel == 1)
+        {
+            SceneManager.LoadScene(gameSceneNameOne);
+        }
+        else if (GlobalVars.PlayerLevel == 2)
+        {
+            SceneManager.LoadScene(gameSceneNameTwo);
+        }
+        else if (GlobalVars.PlayerLevel == 3)
+        {
+            SceneManager.LoadScene(gameSceneNameThree);
         }
     }
 
@@ -148,7 +173,7 @@ public class MenuController : MonoBehaviour
     {
         if (imageToGrow == null)
         {
-            SceneManager.LoadScene(gameSceneName);
+            LoadTheActualGame();
             yield break;
         }
 
@@ -157,7 +182,7 @@ public class MenuController : MonoBehaviour
 
         if (growRect == null || canvasRect == null)
         {
-            SceneManager.LoadScene(gameSceneName);
+            LoadTheActualGame();
             yield break;
         }
 
@@ -177,6 +202,6 @@ public class MenuController : MonoBehaviour
         }
 
         growRect.sizeDelta = targetSize;
-        SceneManager.LoadScene(gameSceneName);
+        LoadTheActualGame();
     }
 }
