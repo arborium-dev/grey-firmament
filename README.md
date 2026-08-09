@@ -44,6 +44,8 @@ Streets of Rogue was the primary inspiration.
 ### Development:
 This game was developed in Unity 6000.3.8f1 over the course of 2 days for Hack Club Horizons Polaris.
 
+Our theme was "The stars reward those who dare to improvise."
+
 ### Tools Used:
 - Unity 6000.3.8f1
 - Aseprite
