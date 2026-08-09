@@ -162,6 +162,8 @@ MonoBehaviour:
   firePoint: {fileID: 3791068596736056094}
   fireRate: 1.5
   bulletSpeed: 8
+  seenSong: {fileID: 8300000, guid: 8f6bea31e4b28ee43abfb601f2bc275f, type: 3}
+  unseenSong: {fileID: 8300000, guid: bd8996feae75b0f4b8b8d2daafd9f36b, type: 3}
 --- !u!212 &4862647231417982892
 SpriteRenderer:
   serializedVersion: 2

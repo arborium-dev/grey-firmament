@@ -5,22 +5,41 @@ public class StandstillEnemy : MonoBehaviour
     [Header("Targeting Settings")]
     public string playerTag = "Player";
     public float sightRange = 10f;
-    // Set this layer mask in the inspector to the layers that contain your walls/floors 
-    // so the enemy can't shoot through them!
     public LayerMask obstacleLayer; 
 
     [Header("Shooting Settings")]
     public GameObject bulletPrefab;
-    public Transform firePoint; // Create an empty GameObject child for where the bullet spawns
+    public Transform firePoint; 
     public float fireRate = 1.5f;
     public float bulletSpeed = 10f;
     
+    [Header("Audio Settings")]
+    public AudioClip seenSong;      
+    public AudioClip unseenSong;    
+    
+    // --- STATIC VARIABLES (Shared across ALL enemies) ---
+    private static AudioSource globalAudio;
+    private static int enemiesSeeingPlayerCount = 0;
+
+    // --- LOCAL VARIABLES (Specific to this one enemy) ---
+    private bool amISeeingPlayer = false;
     private Transform player;
     private float nextFireTime;
 
     void Start()
     {
-        // Find the player automatically at the start of the game
+        // 1. If the global audio manager doesn't exist yet, the very first enemy creates it!
+        if (globalAudio == null)
+        {
+            GameObject audioObj = new GameObject("GlobalMusicManager");
+            globalAudio = audioObj.AddComponent<AudioSource>();
+            globalAudio.loop = true;
+            globalAudio.spatialBlend = 0f; // 0 means 2D sound (plays everywhere at the same volume)
+            
+            enemiesSeeingPlayerCount = 0; // Reset counter at the start of the game
+        }
+
+        // 2. Find the player
         GameObject playerObj = GameObject.FindGameObjectWithTag(playerTag);
         if (playerObj != null)
         {
@@ -30,24 +49,82 @@ public class StandstillEnemy : MonoBehaviour
 
     void Update()
     {
-        // If the player is missing or destroyed, do nothing
-        if (player == null) return; 
+        // If player is dead/missing, this enemy can't see them
+        if (player == null) 
+        {
+            UpdateAlertState(false);
+            ManageMusic();
+            return; 
+        }
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        bool canSeePlayerNow = false;
 
-        // 1. Check if the player is close enough
         if (distanceToPlayer <= sightRange)
         {
-            // 2. Check if the enemy can physically see the player (no walls in the way)
             if (CanSeePlayer())
             {
-                // 3. Check if enough time has passed to shoot again
-                if (Time.time >= nextFireTime)
-                {
-                    Shoot();
-                    nextFireTime = Time.time + 1f / fireRate;
-                }
+                canSeePlayerNow = true;
             }
+        }
+
+        // Update whether THIS specific enemy can see the player
+        UpdateAlertState(canSeePlayerNow);
+        
+        // Decide what music should play globally
+        ManageMusic();
+
+        // Shooting logic
+        if (canSeePlayerNow && Time.time >= nextFireTime)
+        {
+            Shoot();
+            nextFireTime = Time.time + 1f / fireRate;
+        }
+    }
+
+    // Safely adds or removes THIS enemy from the global count of enemies seeing the player
+    void UpdateAlertState(bool canSee)
+    {
+        // If the enemy JUST spotted the player
+        if (canSee && !amISeeingPlayer)
+        {
+            amISeeingPlayer = true;
+            enemiesSeeingPlayerCount++;
+        }
+        // If the enemy JUST lost sight of the player
+        else if (!canSee && amISeeingPlayer)
+        {
+            amISeeingPlayer = false;
+            enemiesSeeingPlayerCount--;
+        }
+    }
+
+    void ManageMusic()
+    {
+        // If AT LEAST ONE enemy in the whole game can see the player, play the seen song
+        if (enemiesSeeingPlayerCount > 0)
+        {
+            PlayGlobalSong(seenSong);
+        }
+        else
+        {
+            PlayGlobalSong(unseenSong);
+        }
+    }
+
+    void PlayGlobalSong(AudioClip clipToPlay)
+    {
+        if (clipToPlay == null || globalAudio == null) return;
+
+        // Only swap the song if a different one is requested
+        if (globalAudio.clip != clipToPlay)
+        {
+            globalAudio.clip = clipToPlay;
+            globalAudio.Play();
+        }
+        else if (!globalAudio.isPlaying)
+        {
+            globalAudio.Play();
         }
     }
 
@@ -56,24 +133,17 @@ public class StandstillEnemy : MonoBehaviour
         Vector2 directionToPlayer = (player.position - transform.position).normalized;
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        // Cast a ray towards the player looking ONLY for obstacles (walls, floors)
         RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, distanceToPlayer, obstacleLayer);
-
-        // If the ray didn't hit any walls/solids, we have a clear line of sight
         return hit.collider == null;
     }
 
     void Shoot()
     {
-        Debug.Log("Enemy spotted player! Firing bullet.");
-
         if (bulletPrefab != null && firePoint != null)
         {
-            // Spawn the bullet
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             
-            // Push the bullet towards the player
             if (rb != null)
             {
                 Vector2 direction = (player.position - firePoint.position).normalized;
@@ -84,17 +154,22 @@ public class StandstillEnemy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // We want the enemy to die if hit by anything EXCEPT the environment.
-        // Without this check, the enemy would instantly die upon touching the floor!
         if (collision.collider.CompareTag("Floor") || collision.collider.CompareTag("Solid"))
         {
             return; 
         }
 
-        // If it's a bullet, explosion, player, etc. -> Destroy the enemy
-
-
-        Debug.Log($"Enemy hit by {collision.gameObject.name}! Removing enemy from scene.");
         Destroy(gameObject);
+    }
+
+    // IMPORTANT: If an enemy dies WHILE looking at the player, it needs to subtract 
+    // itself from the counter, otherwise the combat music will play forever!
+    void OnDestroy()
+    {
+        if (amISeeingPlayer)
+        {
+            enemiesSeeingPlayerCount--;
+            amISeeingPlayer = false;
+        }
     }
 }
