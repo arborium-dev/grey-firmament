@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement; 
 using TMPro; 
 using UnityEngine.UI; 
+using UnityEngine.InputSystem;
 
 public class MenuController : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class MenuController : MonoBehaviour
 
     private int currentSlotToFill = 1;
 
+    private InputAction skipAction;
+    
     public Image imageSlotOne;
     public Image imageSlotTwo;
     public Image imageSlotThree;
@@ -35,9 +38,27 @@ public class MenuController : MonoBehaviour
             instructionText.text = "Select Tool 1";
         }
 
+        // FIX 1: Grab the PlayerInput component attached to this GameObject
+
+        // Make sure it actually found the component to avoid errors
+       
+            skipAction = InputSystem.actions.FindAction("Skip");
+            skipAction.Enable();
+        
+        
+        
         if (GlobalVars.PlayerLevel == 4)
         {
             SceneManager.LoadScene(finalSceneName);
+        }
+    }
+
+    void Update()
+    {
+        if (skipAction != null && skipAction.WasPressedThisFrame())
+        {
+            // FIX 2: Check for typos! Make sure this perfectly matches the name in your Project folder
+            SceneManager.LoadScene("Opening Cutsccene"); 
         }
     }
 
